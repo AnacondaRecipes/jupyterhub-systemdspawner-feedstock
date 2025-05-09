@@ -1,31 +1,39 @@
 {% set name = "jupyterhub-systemdspawner" %}
-{% set version = "0.15.0" %}
+{% set version = "1.0.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: b6e2d981657aa5d3794abb89b1650d056524158a3d0f0f706007cae9b6dbeb2b
+  #url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+
+  # fix: Not sure why the above link wouldn't work
+  url: https://files.pythonhosted.org/packages/0a/bf/300970a1a70d2606da0c213462cf0aa153e25a96f0835ac4ca330f4ea9dc/jupyterhub_systemdspawner-1.0.2.tar.gz
+  sha256: b28fdf38c80d5aec47b2093053dfa19ebe53ffd9d4062a5854c737e7fba01e50
 
 build:
-  number: 3
+  number: 0
   skip: true  # [osx or win or py2k]
-  script: '{{ PYTHON }} -m pip install . -vv '
+  script: '{{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation'
 
 requirements:
   host:
     - pip
+    - wheel
     - python
   run:
-    - jupyterhub >=0.9
+    - jupyterhub >=2.3.0
     - python
-    - tornado >=5.0
+    - tornado >=5.1
 
 test:
   imports:
     - systemdspawner
+  commands:
+    - pip check
+  requires:
+    - pip
 
 about:
   home: https://github.com/jupyterhub/systemdspawner
@@ -47,3 +55,5 @@ about:
 extra:
   recipe-maintainers:
     - mwcraig
+  skip-lints:
+    - gui_app
