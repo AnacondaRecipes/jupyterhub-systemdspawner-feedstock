@@ -6,7 +6,10 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  #url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+
+  # fix: Not sure why the above link wouldn't work
+  url: https://files.pythonhosted.org/packages/0a/bf/300970a1a70d2606da0c213462cf0aa153e25a96f0835ac4ca330f4ea9dc/jupyterhub_systemdspawner-1.0.2.tar.gz
   sha256: b28fdf38c80d5aec47b2093053dfa19ebe53ffd9d4062a5854c737e7fba01e50
 
 build:
